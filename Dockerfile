@@ -5,8 +5,6 @@ ENV PYTHONUNBUFFERED 1
 COPY ./requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
-RUN "echo 'hello'"
-
 # Adds our application code to the image
 COPY . code
 WORKDIR code
