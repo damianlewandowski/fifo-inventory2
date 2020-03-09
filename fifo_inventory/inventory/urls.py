@@ -10,8 +10,8 @@ router.register(r'sold', SoldViewSet)
 
 urlpatterns = [
     path('quantity/', views.inventory_status, name='inventory_status'),
-    path('value/', views.inventory_value),
-    path('item_value/', views.inventory_item_value),
+    path('value/', views.inventory_value, name='inventory_value'),
+    path('item_value/', views.inventory_item_value, name='inventory_item_value'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

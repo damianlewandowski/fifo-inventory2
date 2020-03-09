@@ -5,10 +5,14 @@ from rest_framework.reverse import reverse
 from rest_framework.test import APITestCase
 import logging
 
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+logger.addHandler(logging.StreamHandler())
 
-class InventoryStatusTestCase(APITestCase):
+
+class InventoryValueTestCase(APITestCase):
     def setUp(self):
-        self.endpoint = reverse('inventory_status')
+        self.endpoint = reverse('inventory_item_value')
 
         # insert some bought items
         self.bought_endpoint = reverse('bought-list')
@@ -35,40 +39,39 @@ class InventoryStatusTestCase(APITestCase):
 
         self.sold_items_total_count = sum([item['quantity'] for item in sold_items])
 
-    def test_inventory_status_date_in_range_of_items(self):
+    def test_inventory_item_value_date_extreme_start(self):
         year = 2020
         month = 3
-        day = 10
-        response = self.client.get(self.endpoint, {'year': year, 'month': month, 'day': day})
-        received_quantity = response.data['quantity']
-        expected_quantity = 23
-        self.assertEqual(received_quantity, expected_quantity)
+        day = 9
 
-    def test_inventory_status_no_sold_in_date_ultimo(self):
-        year = 2020
-        month = 3
-        day = 8
         response = self.client.get(self.endpoint, {'year': year, 'month': month, 'day': day})
-        received_quantity = response.data['quantity']
-        expected_quantity = 10
-        self.assertEqual(received_quantity, expected_quantity)
+        expected_value = 2.0
+        received_value = response.data['current_item_price']
 
-    # The result should be total bought - total sold
-    def test_inventory_status_sold_date_at_the_end(self):
+        logger.info(received_value)
+        logger.info('am i here')
+
+        self.assertEqual(expected_value, received_value)
+
+    def test_inventory_value_date_extreme_end(self):
         year = 2020
         month = 3
         day = 15
-        response = self.client.get(self.endpoint, {'year': year, 'month': month, 'day': day})
-        received_quantity = response.data['quantity']
-        expected_quantity = self.bought_items_total_count - self.sold_items_total_count
-        self.assertEqual(received_quantity, expected_quantity)
 
-    # The result should be 0 since nothing was bought or sold ultimo day 1
-    def test_inventory_status_no_bought_or_sold(self):
+        response = self.client.get(self.endpoint, {'year': year, 'month': month, 'day': day})
+        expected_value = 3.0
+        received_value = response.data['current_item_price']
+
+        self.assertEqual(expected_value, received_value)
+
+
+    def test_inventory_value_date_between(self):
         year = 2020
         month = 3
-        day = 1
+        day = 13
+
         response = self.client.get(self.endpoint, {'year': year, 'month': month, 'day': day})
-        received_quantity = response.data['quantity']
-        expected_quantity = 0
-        self.assertEqual(received_quantity, expected_quantity)
+        expected_value = 3.0
+        received_value = response.data['current_item_price']
+
+        self.assertEqual(expected_value, received_value)
