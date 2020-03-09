@@ -63,3 +63,13 @@ to the database instead of through ORM.
 - Easy, used most of the logic from previous question. Instead of breaking the iteration I return a response of current bought items cost_per_item.
 
 ## Pushed to github before adding CRUD endpoints for Bought and Sold.
+
+## Next steps
+- Added CRUD endpoints for Bought and Sold. The amount of effort to add all CRUD operations instead of just Create is the same,
+so might as well add it here if you want to play further with the api.
+- Removed users app responsible for authentication. It came from a template, and since this service is supposed to be public, its functionality is unnecesary.
+- Finished writing my first tests. Thought about an edge case which broke my earlier code, so I had to fix it. Gonna spend some more time on writing tests,
+but I don't want to spend an entire day on it, so there won't be that many of them.
+- After I finish writing tests, I need to start analyzing the rest of the project, because I honestly don't understand all of it.
+- Then I should look into proper dockerfile for prod, since the only supplied for now is a very simple one with full image of python and no proper change of user
+to prevent running container as a root.
