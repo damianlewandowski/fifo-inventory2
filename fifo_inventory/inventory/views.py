@@ -33,6 +33,18 @@ class BoughtViewSet(viewsets.ModelViewSet):
     queryset = Bought.objects.all()
     serializer_class = BoughtSerializer
 
+    @action(detail=False, methods=['get'])
+    def quantity(self, request):
+        total_quantity = Bought.objects.all().aggregate(Sum('quantity'))
+        return Response({'quantity': total_quantity['quantity__sum']})
+
+    @action(detail=False, methods=['get'])
+    def total_value(self, request):
+        bought_price_total = Bought.objects.annotate(
+            result=ExpressionWrapper(F('quantity') * F('cost_per_item'), output_field=FloatField())).aggregate(
+            Sum('result'))
+        return Response({'total_value': bought_price_total['result__sum']})
+
 
 class SoldViewSet(viewsets.ModelViewSet):
     """
@@ -42,6 +54,30 @@ class SoldViewSet(viewsets.ModelViewSet):
     queryset = Sold.objects.all()
     serializer_class = SoldSerializer
 
+    @action(detail=False, methods=['get'])
+    def total_value(self, request):
+        all_sold_items = Sold.objects.aggregate(Sum('quantity'))
+        all_sold_items = all_sold_items['quantity__sum']
+
+        result = 0
+
+        bought_items_set = Bought.objects.all()
+
+        # Use iterator to load data in chunks instead of all at once.
+        # Protects from loading huge sets of data into memory at once
+        for bought_item in bought_items_set.iterator():
+            difference = all_sold_items - bought_item.quantity
+
+            # More bought by given day than sold
+            if difference < 0:
+                result += all_sold_items * bought_item.cost_per_item
+                break
+            # Sold more
+            else:
+                result += bought_item.quantity * bought_item.cost_per_item
+                all_sold_items -= bought_item.quantity
+
+        return Response({'total_value': result})
 
 # Example:
 # Question: How many pens does Sebastian have in stock ultimo Jan 11th 2016?

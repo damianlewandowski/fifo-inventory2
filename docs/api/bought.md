@@ -27,3 +27,40 @@ Content-Type application/json
     "cost_per_item": 10.0
 }
 ```
+
+## Quantity
+Retrieves total amount of bought items
+
+**Request**:
+
+`GET` `/bought/quantity/`
+
+**Response**:
+
+```json
+Content-Type application/json
+200 OK
+
+{
+    "quantity": 180
+}
+```
+
+## Total Value
+Retrieves total amount of bought items
+
+**Request**:
+
+`GET` `/bought/total_value/`
+
+**Response**:
+
+```json
+Content-Type application/json
+200 OK
+
+{
+    "total_value": 450.0
+}
+```
+

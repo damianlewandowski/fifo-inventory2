@@ -3,11 +3,6 @@ from django.test import TestCase
 # Create your tests here.
 from rest_framework.reverse import reverse
 from rest_framework.test import APITestCase
-import logging
-
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
-logger.addHandler(logging.StreamHandler())
 
 
 class InventoryValueTestCase(APITestCase):
@@ -47,9 +42,6 @@ class InventoryValueTestCase(APITestCase):
         response = self.client.get(self.endpoint, {'year': year, 'month': month, 'day': day})
         expected_value = 2.0
         received_value = response.data['current_item_price']
-
-        logger.info(received_value)
-        logger.info('am i here')
 
         self.assertEqual(expected_value, received_value)
 
