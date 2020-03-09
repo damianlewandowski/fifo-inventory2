@@ -3,11 +3,6 @@ from django.test import TestCase
 # Create your tests here.
 from rest_framework.reverse import reverse
 from rest_framework.test import APITestCase
-import logging
-
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
-logger.addHandler(logging.StreamHandler())
 
 
 class BoughtViewSetTestCase(APITestCase):

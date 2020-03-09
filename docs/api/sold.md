@@ -25,3 +25,21 @@ Content-Type application/json
     "quantity": 20
 }
 ```
+
+## Total Value
+Retrieves total value of sold items
+
+**Request**:
+
+`GET` `/bought/total_value/`
+
+**Response**:
+
+```json
+Content-Type application/json
+200 OK
+
+{
+    "total_value": 450.0
+}
+```

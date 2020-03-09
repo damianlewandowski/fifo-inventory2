@@ -4,19 +4,19 @@ Answers following questions:
 2. What is the value of the inventory ultimo Jan 11th 2016?
 3. What are the costs of pen solds ultimo Jan 11th 2016?
 
-## 1.
+## Quantity of items ultimo {year} {month} {day}
 
 **Request**:
 
-`GET` `/inventory/inventory_status`
+`GET` `/inventory/inventory_status/`
 
-Parameters:
+Query Parameters:
 
 Name           | Type   | Required  | Description
 ---------------|--------|-----------|------------
-date           | string | Yes       | {year}-{month}-{day}
-quantity       | number | Yes       | Quantity of bought items
-cost_per_item  | number | Yes       | Cost of a single item
+year           | number | Yes       | Year
+month          | number | Yes       | Month
+day            | number | Yes       | Day
 
 **Response**:
 
@@ -30,3 +30,54 @@ Content-Type application/json
     "cost_per_item": 10.0
 }
 ```
+
+## Value of the inventory ultimo {year} {month} {day}
+
+**Request**:
+
+`GET` `/inventory/inventory_value/`
+
+Query Parameters:
+
+Name           | Type   | Required  | Description
+---------------|--------|-----------|------------
+year           | number | Yes       | Year
+month          | number | Yes       | Month
+day            | number | Yes       | Day
+
+**Response**:
+
+```json
+Content-Type application/json
+200 OK
+
+{
+    "total_value": 225.0
+}
+```
+
+## Value of an item ultimo {year} {month} {day}
+
+**Request**:
+
+`GET` `/inventory/inventory_value/`
+
+Query Parameters:
+
+Name           | Type   | Required  | Description
+---------------|--------|-----------|------------
+year           | number | Yes       | Year
+month          | number | Yes       | Month
+day            | number | Yes       | Day
+
+**Response**:
+
+```json
+Content-Type application/json
+200 OK
+
+{
+    "current_item_price": 1.0
+}
+```
+
