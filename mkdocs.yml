@@ -8,5 +8,5 @@ dev_addr: 0.0.0.0:8001
 nav:
   - Home: 'index.md'
   - API:
-    - Authentication: 'api/authentication.md'
-    - Users: 'api/users.md'
+    - Bought: 'api/bought.md'
+    - Sold: 'api/sold.md'
