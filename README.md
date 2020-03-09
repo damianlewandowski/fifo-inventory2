@@ -17,10 +17,16 @@ docker-compose up
 ```
 
 Run a command inside the docker container:
-
 ```bash
 docker-compose run --rm web [command]
 ```
+
+Run tests
+```bash
+docker exec -it ciklum_web_1 python manage.py test
+```
+
+Checkout documentation on localhost:8001 and browsable api at localhost:8000 in your browser.
 
 # Journal
 
