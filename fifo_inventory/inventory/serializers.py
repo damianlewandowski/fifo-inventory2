@@ -14,6 +14,5 @@ class SoldSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sold
         fields = ('date', 'quantity', )
-        # read_only_fields = ('username', )
 
 
