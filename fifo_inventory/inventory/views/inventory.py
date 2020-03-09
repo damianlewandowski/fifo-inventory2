@@ -1,83 +1,17 @@
 import datetime
 import logging
 
-from rest_framework import viewsets, status
+from rest_framework import status
 from rest_framework.decorators import api_view
-from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.db.models import Sum, ExpressionWrapper, FloatField, F
 
 from fifo_inventory.inventory.models import Bought, Sold
-from fifo_inventory.inventory.serializers import BoughtSerializer, SoldSerializer
 
-# Write some tests!
-# Work on prod docker
-# Checkout other python packages
-# Remove users and authentication
-# Remove packages for authentication
-# Is moment-like package neccesary?
-# Ask them about ultimo
-# Write documentation for this api!
-# Check all those weird files
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 logger.addHandler(logging.StreamHandler())
-
-
-class BoughtViewSet(viewsets.ModelViewSet):
-    """
-    This viewset automatically provides `list`, `create`, `retrieve`,
-    `update` and `destroy` actions.
-    """
-    queryset = Bought.objects.all()
-    serializer_class = BoughtSerializer
-
-    @action(detail=False, methods=['get'])
-    def quantity(self, request):
-        total_quantity = Bought.objects.all().aggregate(Sum('quantity'))
-        return Response({'quantity': total_quantity['quantity__sum']})
-
-    @action(detail=False, methods=['get'])
-    def total_value(self, request):
-        bought_price_total = Bought.objects.annotate(
-            result=ExpressionWrapper(F('quantity') * F('cost_per_item'), output_field=FloatField())).aggregate(
-            Sum('result'))
-        return Response({'total_value': bought_price_total['result__sum']})
-
-
-class SoldViewSet(viewsets.ModelViewSet):
-    """
-    This viewset automatically provides `list`, `create`, `retrieve`,
-    `update` and `destroy` actions.
-    """
-    queryset = Sold.objects.all()
-    serializer_class = SoldSerializer
-
-    @action(detail=False, methods=['get'])
-    def total_value(self, request):
-        all_sold_items = Sold.objects.aggregate(Sum('quantity'))
-        all_sold_items = all_sold_items['quantity__sum']
-
-        result = 0
-
-        bought_items_set = Bought.objects.all()
-
-        # Use iterator to load data in chunks instead of all at once.
-        # Protects from loading huge sets of data into memory at once
-        for bought_item in bought_items_set.iterator():
-            difference = all_sold_items - bought_item.quantity
-
-            # More bought by given day than sold
-            if difference < 0:
-                result += all_sold_items * bought_item.cost_per_item
-                break
-            # Sold more
-            else:
-                result += bought_item.quantity * bought_item.cost_per_item
-                all_sold_items -= bought_item.quantity
-
-        return Response({'total_value': result})
 
 # Example:
 # Question: How many pens does Sebastian have in stock ultimo Jan 11th 2016?

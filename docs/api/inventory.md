@@ -4,7 +4,7 @@ Answers following questions:
 2. What is the value of the inventory ultimo Jan 11th 2016?
 3. What are the costs of pen solds ultimo Jan 11th 2016?
 
-## Quantity of items ultimo {year} {month} {day}
+## Quantity of items
 
 **Request**:
 
@@ -31,7 +31,7 @@ Content-Type application/json
 }
 ```
 
-## Value of the inventory ultimo {year} {month} {day}
+## Value of the inventory
 
 **Request**:
 
@@ -56,7 +56,7 @@ Content-Type application/json
 }
 ```
 
-## Value of an item ultimo {year} {month} {day}
+## Value of an item
 
 **Request**:
 
