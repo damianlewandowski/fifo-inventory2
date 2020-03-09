@@ -10,3 +10,4 @@ nav:
   - API:
     - Bought: 'api/bought.md'
     - Sold: 'api/sold.md'
+    - Inventory: 'api/inventory.md'

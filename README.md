@@ -45,10 +45,10 @@ docker-compose run --rm web [command]
 - Found awesome template for writing django-rest code. Cookiecutter django-rest. Kickass tool!
 - Generated project and wrote 3 endpoints to answer the questions.
 
-## How many items in inventory ultimo {ultimo}
+### How many items in inventory ultimo {ultimo}
 - All I had to do here is count amount of bought and solds items ultimo {ultimo} and return the result.
 
-## Value of inventory ultimo {ultimo}
+### Value of inventory ultimo {ultimo}
 - Had to fetch from database total amount of sold items ultimo {ultimo}. Then calculate the total value of inventory ultimo {ultimo}
 Finally loop through bought items and subtract on each iteration from inventory value amount of sold items * items bought on given days using FIFO.
 - This one was trickier. I had a couple of ideas, first was stupid and involved fetching all of data from database and
@@ -59,10 +59,10 @@ load on cpu.
 - In the end I am pretty happy about this solution. Futher optimizations could be done by going on lower level sql and performing queries directly 
 to the database instead of through ORM.
 
-## Cost of current item ultimo {ultimo}
+### Cost of current item ultimo {ultimo}
 - Easy, used most of the logic from previous question. Instead of breaking the iteration I return a response of current bought items cost_per_item.
 
-## Pushed to github before adding CRUD endpoints for Bought and Sold.
+### Pushed to github before adding CRUD endpoints for Bought and Sold.
 
 ## Next steps
 - Added CRUD endpoints for Bought and Sold. The amount of effort to add all CRUD operations instead of just Create is the same,
@@ -73,3 +73,12 @@ but I don't want to spend an entire day on it, so there won't be that many of th
 - After I finish writing tests, I need to start analyzing the rest of the project, because I honestly don't understand all of it.
 - Then I should look into proper dockerfile for prod, since the only supplied for now is a very simple one with full image of python and no proper change of user
 to prevent running container as a root.
+
+
+## Last steps
+- I finished writing tests. There aren't many of them, but I don't think you wanted me to completely focus on writing dozens of them.
+- I had to implement additional endpoints, which I missed. They were mentioned in the beggining, but I skipped right to the questions I needed to answer below.
+- Finished writing documentation
+- The only things left for me to do is to clean up packages, that are not used right now, but were included in the starting template. Also I should look into dockerfile, go with some lite version and setup non-root user to run the server.
+- I am not sure what you meant by service being self contained. I need a database, and that could be setup somewhere else in its own container.
+Right now everything is ran through docker-compose and a basic dockerfile for API that uses python 3.8 image.
