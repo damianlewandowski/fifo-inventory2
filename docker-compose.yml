@@ -4,7 +4,7 @@ services:
   postgres:
     image: postgres:11.6
     volumes:
-      - ./docker/data:/var/lib/postgresql/data
+      - ./docker/data:/var/lib/postgresql/data:z
 
   web:
     restart: always

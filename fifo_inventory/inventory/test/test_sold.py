@@ -2,10 +2,6 @@ from rest_framework.reverse import reverse
 from rest_framework.test import APITestCase
 import logging
 
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
-logger.addHandler(logging.StreamHandler())
-
 
 class SoldViewSetTestCase(APITestCase):
     def setUp(self):
