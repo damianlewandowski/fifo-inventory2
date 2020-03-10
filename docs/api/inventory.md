@@ -8,7 +8,7 @@ Answers following questions:
 
 **Request**:
 
-`GET` `/inventory/inventory_status/`
+`GET` `/inventory/quantity/`
 
 Query Parameters:
 
@@ -22,7 +22,7 @@ day            | number | Yes       | Day
 
 ```json
 Content-Type application/json
-201 Created
+200 OK
 
 {
     "date": "2020-03-19",
@@ -35,7 +35,7 @@ Content-Type application/json
 
 **Request**:
 
-`GET` `/inventory/inventory_value/`
+`GET` `/inventory/value/`
 
 Query Parameters:
 
@@ -60,7 +60,7 @@ Content-Type application/json
 
 **Request**:
 
-`GET` `/inventory/inventory_value/`
+`GET` `/inventory/item_value/`
 
 Query Parameters:
 

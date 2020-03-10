@@ -72,6 +72,10 @@ def inventory_value(request, format=None):
     sold_items_total_quantity = Sold.objects.filter(date__lte=ultimo).aggregate(Sum('quantity'))
     sold_items_total_quantity = sold_items_total_quantity['quantity__sum']
 
+    # No sold items in requested ultimo
+    if sold_items_total_quantity is None:
+        sold_items_total_quantity = 0
+
     # Total value of inventory without selling anything ultimo {ultimo}
     # Might as well calculate it inside database since it's much more efficient
     bought_price_total = Bought.objects.filter(date__lte=ultimo).annotate(
@@ -116,6 +120,10 @@ def inventory_item_value(request, format=None):
     sold_items_total_quantity = Sold.objects.filter(date__lte=ultimo).aggregate(Sum('quantity'))
     sold_items_total_quantity = sold_items_total_quantity['quantity__sum']
 
+    # No sold items in given ultimo
+    if sold_items_total_quantity is None:
+        sold_items_total_quantity = 0
+
     # All of the bought items ultimo {ultimo}
     bought_items_set = Bought.objects.filter(date__lte=ultimo).order_by('date')
 
@@ -133,4 +141,4 @@ def inventory_item_value(request, format=None):
             sold_items_total_quantity -= bought_item.quantity
 
     logger.error(f'Method not handling edge cases properly')
-    return Response('Something went wrong', status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    return Response('Database might be empty.', status=status.HTTP_400_BAD_REQUEST)

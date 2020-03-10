@@ -1,5 +1,9 @@
-FROM python:3.8
+FROM python:3.8-slim-buster
 ENV PYTHONUNBUFFERED 1
+
+# Need to install libpq-dev for psycopg2 (postgres driver)
+RUN apt-get update -y
+RUN apt-get install -y libpq-dev
 
 # Allows docker to cache installed dependencies between builds
 COPY ./requirements.txt requirements.txt

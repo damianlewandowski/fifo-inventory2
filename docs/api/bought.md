@@ -47,7 +47,7 @@ Content-Type application/json
 ```
 
 ## Total Value
-Retrieves total amount of bought items
+Retrieves total value of bought items
 
 **Request**:
 
