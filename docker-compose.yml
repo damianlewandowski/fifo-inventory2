@@ -3,6 +3,9 @@ version: '3'
 services:
   postgres:
     image: postgres:11.6
+    volumes:
+      - ./docker/data:/var/lib/postgresql/data
+
   web:
     restart: always
     environment:
