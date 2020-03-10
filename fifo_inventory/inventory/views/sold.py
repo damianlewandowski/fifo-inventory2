@@ -9,9 +9,7 @@ from fifo_inventory.inventory.models import Bought, Sold
 from fifo_inventory.inventory.serializers import SoldSerializer
 
 
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
-logger.addHandler(logging.StreamHandler())
+logger = logging.getLogger(__name__)
 
 class SoldViewSet(viewsets.ModelViewSet):
     """

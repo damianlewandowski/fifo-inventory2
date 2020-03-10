@@ -8,9 +8,7 @@ from django.db.models import Sum, ExpressionWrapper, FloatField, F
 from fifo_inventory.inventory.models import Bought
 from fifo_inventory.inventory.serializers import BoughtSerializer
 
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
-logger.addHandler(logging.StreamHandler())
+logger = logging.getLogger('fifo_inventory.inventory.views.bought')
 
 
 class BoughtViewSet(viewsets.ModelViewSet):
@@ -24,6 +22,7 @@ class BoughtViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['get'])
     def quantity(self, request, format=None):
         total_quantity = Bought.objects.all().aggregate(Sum('quantity'))
+        logger.info(f'Total quantity: {total_quantity}')
         return Response({'quantity': total_quantity['quantity__sum']})
 
     @action(detail=False, methods=['get'])
