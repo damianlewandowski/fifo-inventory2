@@ -19,6 +19,10 @@ class SoldViewSet(viewsets.ModelViewSet):
     queryset = Sold.objects.all()
     serializer_class = SoldSerializer
 
+    def filter_queryset(self, queryset):
+        queryset = super(SoldViewSet, self).filter_queryset(queryset)
+        return queryset.order_by('date')
+
     @action(detail=False, methods=['get'])
     def total_value(self, request):
         all_sold_items = Sold.objects.aggregate(Sum('quantity'))

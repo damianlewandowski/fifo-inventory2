@@ -5,6 +5,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.db.models import Sum, ExpressionWrapper, FloatField, F
 
+
 from fifo_inventory.inventory.models import Bought
 from fifo_inventory.inventory.serializers import BoughtSerializer
 
@@ -19,6 +20,10 @@ class BoughtViewSet(viewsets.ModelViewSet):
     """
     queryset = Bought.objects.all()
     serializer_class = BoughtSerializer
+
+    def filter_queryset(self, queryset):
+        queryset = super(BoughtViewSet, self).filter_queryset(queryset)
+        return queryset.order_by('date')
 
     @action(detail=False, methods=['get'])
     def quantity(self, request, format=None):
