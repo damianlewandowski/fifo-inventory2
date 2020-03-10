@@ -154,7 +154,12 @@ class Common(Configuration):
             'mail_admins': {
                 'level': 'ERROR',
                 'class': 'django.utils.log.AdminEmailHandler'
-            }
+            },
+            'file': {
+                'level': 'DEBUG',
+                'class': 'logging.FileHandler',
+                'filename': 'debug.log',
+            },
         },
         'loggers': {
             'django': {
@@ -174,6 +179,11 @@ class Common(Configuration):
             'django.db.backends': {
                 'handlers': ['console'],
                 'level': 'INFO'
+            },
+            'fifo_inventory': {
+                'handlers': ['console'],
+                'level': 'DEBUG',
+                'propagate': True,
             },
         }
     }

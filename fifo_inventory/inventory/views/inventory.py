@@ -9,9 +9,7 @@ from django.db.models import Sum, ExpressionWrapper, FloatField, F
 from fifo_inventory.inventory.models import Bought, Sold
 
 
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
-logger.addHandler(logging.StreamHandler())
+logger = logging.getLogger(__name__)
 
 # Example:
 # Question: How many pens does Sebastian have in stock ultimo Jan 11th 2016?
